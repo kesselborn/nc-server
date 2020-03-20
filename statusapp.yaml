@@ -37,7 +37,7 @@ spec:
             read req
             status_code=$(echo "$req"|grep -o '[1-5][0-9][0-9]')
 
-            echo -e "HTTP/1.1 ${status_code} \nContent-Length: 0\n"
+            echo -e "HTTP/1.1 ${status_code} \nContent-Length: 20\n\nstatus code was ${status_code}"
             EOF
             chmod +x /tmp/websphere
 
@@ -75,3 +75,4 @@ spec:
         backend:
           serviceName: statusapp
           servicePort: 80
+
