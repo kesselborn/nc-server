@@ -1,6 +1,24 @@
 # nc server
 
-Ultra minimal Kubernetes apps for testing stuff. They just need an alpine linux image with no additional software added.
+Ultra minimal Kubernetes and Docker apps for testing stuff. They just need an alpine linux image with no additional software added.
+
+## Docker minimal server
+
+    # just a 200
+    docker run -p 8080:80 --rm alpine sh -xc 'cd /tmp;echo -e "#!/bin/sh\necho HTTP/1.1 200 OK">s;chmod +x s;nc -lks 0.0.0.0 -p80 -e ./s'
+
+    # 'verbose' response with 'OK' as body
+    docker run -p 8080:80 --rm alpine sh -xc 'cd /tmp;echo -e "#!/bin/sh\necho \"HTTP/1.1 200 OK \nContent-Length: 2\n\nOK\"">s;chmod +x s;nc -lks 0.0.0.0 -p80 -e ./s'
+
+or as Dockerfiles:
+
+    FROM alpine
+    CMD sh -xc 'cd /tmp;echo -e "#!/bin/sh\necho HTTP/1.1 200 OK">s;chmod +x s;nc -lks 0.0.0.0 -p80 -e ./s'
+
+verbose version:
+
+    FROM alpine
+    CMD sh -xc 'cd /tmp;echo -e "#!/bin/sh\necho \"HTTP/1.1 200 OK \nContent-Length: 2\n\nOK\"">s;chmod +x s;nc -lks 0.0.0.0 -p80 -e ./s'
 
 ## toc.yaml
 
