@@ -1,21 +1,18 @@
 #!/bin/sh
+# kubectl delete -n phx-local configmap grafana-static-datasource-webserver; kubectl create -n phx-local configmap grafana-static-datasource-webserver --from-file=webserver.sh
 
-mkdir -p /tmp/htdocs && cd /tmp/htdocs
+mkdir -p /tmp/htdocs
+cd /tmp/htdocs
 
-# create our files
-cat <<\EOF >foo.json
-{
-  "foo": "bar"
-}
-EOF
-
-cat <<\EOF >cities.csv
+cat <<\EOF >niederlassungen.csv
 "city","city_ascii","lat","lng","country","iso2","iso3","admin_name","capital","population","id"
-"Tokyo","Tokyo","35.6897","139.6922","Japan","JP","JPN","Tōkyō","primary","37732000","1392685764"
-"Jakarta","Jakarta","-6.1750","106.8275","Indonesia","ID","IDN","Jakarta","primary","33756000","1360771077"
-"Delhi","Delhi","28.6100","77.2300","India","IN","IND","Delhi","admin","32226000","1356872604"
-"Guangzhou","Guangzhou","23.1300","113.2600","China","CN","CHN","Guangdong","admin","26940000","1156237133"
+"Berlin","Berlin","52.5200","13.4050","Germany","DE","DEU","Berlin","primary","4890363","1276451290"
+"Düsseldorf","Dusseldorf","51.2333","6.7833","Germany","DE","DEU","North Rhine-Westphalia","admin","629047","1276615258"
+"München","Munich","48.1375","11.5750","Germany","DE","DEU","Bavaria","admin","2606021","1276692352"
+"Hamburg","Hamburg","53.5500","10.0000","Germany","DE","DEU","Hamburg","admin","2484800","1276041799"
 EOF
+
+echo -e "proudly serving files:\n\n$(find ./ -type f | sed "s/^\./      /g" | sort)\n\n"
 
 ##########################################################
 # create our web framework
